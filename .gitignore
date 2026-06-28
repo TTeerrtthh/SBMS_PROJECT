@@ -1,6 +1,0 @@
-dataset/raw/nasa_original/
-dataset/processed/
-models/trained_models/
-*.h5
-*.pkl
-*.joblib
