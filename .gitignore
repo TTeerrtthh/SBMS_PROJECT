@@ -1,0 +1,26 @@
+# Raw Dataset
+
+dataset/raw/nasa_original/
+
+# Processed data
+
+dataset/processed/
+
+# Trained models
+
+*.h5
+*.pkl
+*.joblib
+
+# Python
+
+__pycache__/
+.ipynb_checkpoints/
+
+# VS Code
+
+.vscode/
+
+# Virtual Environment
+
+venv/
