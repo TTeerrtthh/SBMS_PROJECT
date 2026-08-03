@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # SBMS Project — Adaptive Hybrid Random Forest (AHRF) for Battery Health Prediction
 
 Predicts **SOC**, **SOH**, and **RUL** for NASA lithium-ion battery B0005 using
@@ -96,3 +97,6 @@ Every module in `src/` has been run end-to-end against a synthetic dataset
 matching this exact folder/column structure (120 discharge cycles, degrading
 capacity, matching metadata) to confirm the full pipeline runs without
 errors before you plug in your real data.
+=======
+# SBMS
+>>>>>>> 321d3fa708c1f9828179672d4064df9bdd6dbbee
