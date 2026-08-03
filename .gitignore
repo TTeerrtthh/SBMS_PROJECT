@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+*.pkl
+
+# Raw NASA data can be large -- keep it local, not in git.
+# (Comment these two lines out if your files are small enough for GitHub's 100MB limit
+# and you want your repo to be fully self-contained.)
+dataset/raw/nasa_original/*.csv
+dataset/processed/**/*.csv
+
+.DS_Store
