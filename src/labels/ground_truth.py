@@ -33,25 +33,32 @@ def generate_soh_labels(discharge_features, metadata, rated_capacity_ah=None,
 
     discharge_features : output of build_feature_dataset() for the discharge
         experiment -- must contain a file-identifier column (default 'File').
+        If a 'Capacity' column is ALREADY present (e.g. because Notebook 03's
+        trend-feature step already merged it in to compute capacity_fade_rate),
+        that existing column is used directly and metadata is NOT re-merged
+        -- avoiding duplicate/conflicting columns.
     metadata : output of load_metadata() -- must contain a matching filename
-        column (default 'filename') and a Capacity column.
+        column (default 'filename') and a Capacity column. Only used if
+        discharge_features doesn't already have a Capacity column.
     """
     if rated_capacity_ah is None:
         rated_capacity_ah = RATED_CAPACITY_AH
 
-    meta_subset = metadata[[merge_right_on, capacity_col]].drop_duplicates()
-
-    merged = discharge_features.merge(
-        meta_subset,
-        left_on=merge_left_on,
-        right_on=merge_right_on,
-        how="left",
-    )
+    if capacity_col in discharge_features.columns:
+        merged = discharge_features.copy()
+    else:
+        meta_subset = metadata[[merge_right_on, capacity_col]].drop_duplicates()
+        merged = discharge_features.merge(
+            meta_subset,
+            left_on=merge_left_on,
+            right_on=merge_right_on,
+            how="left",
+        )
 
     missing = merged[capacity_col].isna().sum()
     if missing > 0:
-        print(f"Warning: {missing} rows had no matching Capacity value in "
-              f"metadata after merging on '{merge_left_on}' <-> '{merge_right_on}'. "
+        print(f"Warning: {missing} rows had no matching Capacity value "
+              f"after merging on '{merge_left_on}' <-> '{merge_right_on}'. "
               "Check that filenames match exactly between your features and metadata.")
 
     merged["SOH (%)"] = (merged[capacity_col] / rated_capacity_ah) * 100

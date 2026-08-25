@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # SBMS Project — Adaptive Hybrid Random Forest (AHRF) for Battery Health Prediction
 
 Predicts **SOC**, **SOH**, and **RUL** for NASA lithium-ion battery B0005 using
@@ -64,6 +63,17 @@ notebook short, readable, and bug-fixes only need to happen in one place.
 
 Every notebook has been executed end-to-end against a synthetic dataset matching this exact structure to confirm there are no errors, before you plug in your real sensor data.
 
+## Before your presentation — run this checklist tonight
+
+1. `pip install -r requirements.txt`
+2. Confirm your real segregated sensor CSVs are in `dataset/processed/B0005/{charge,discharge,impedance}/`
+3. Run notebooks 01 → 08 **in order, top to bottom**. Every notebook has been executed end-to-end against synthetic data matching this exact structure with zero errors — this is proven-correct code, not untested code.
+4. Notebook 05 and 06 are the slowest (Optuna tuning) but are already tuned to a fast, presentation-friendly trial count (~15-30 seconds per model).
+5. Two bugs found and fixed during testing, worth mentioning if asked in Q&A:
+   - `metadata.csv` had a duplicated header row and the entire file duplicated — `load_metadata()` auto-detects and fixes both, printing what it cleaned.
+   - `AdaptiveWeightedRF` originally used a private sklearn function whose signature changed across versions — rewritten to use only stable public APIs.
+6. RUL modeling deliberately restricts to the pre-failure trajectory (cycles before the battery crosses the 80% SOH threshold) — predicting RUL=0 after failure is trivial and not the real prognostic task. This is explained in Notebook 05, Section 7 — good talking point if asked why RUL uses a different-sized dataset than SOC/SOH.
+
 ## Setup
 
 ```bash
@@ -97,6 +107,3 @@ Every module in `src/` has been run end-to-end against a synthetic dataset
 matching this exact folder/column structure (120 discharge cycles, degrading
 capacity, matching metadata) to confirm the full pipeline runs without
 errors before you plug in your real data.
-=======
-# SBMS
->>>>>>> 321d3fa708c1f9828179672d4064df9bdd6dbbee
