@@ -1,13 +1,23 @@
+# Python virtual environment
 .venv/
+
+# Python cache
 __pycache__/
 *.pyc
+
+# Jupyter temporary files
 .ipynb_checkpoints/
-*.pkl
 
-# Raw NASA data can be large -- keep it local, not in git.
-# (Comment these two lines out if your files are small enough for GitHub's 100MB limit
-# and you want your repo to be fully self-contained.)
-dataset/raw/nasa_original/*.csv
-dataset/processed/**/*.csv
-
+# OS files
 .DS_Store
+
+# --------------------------------------------------
+# ORIGINAL RAW NASA DUMP
+# Keep the original raw CSV collection local.
+# --------------------------------------------------
+dataset/raw/nasa_original/*.csv
+
+# --------------------------------------------------
+# The processed B0005 CSVs and model artifacts below
+# are intentionally tracked in GitHub.
+# --------------------------------------------------
